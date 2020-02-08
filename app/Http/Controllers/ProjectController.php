@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
+    /**
+    Main function to display projects
+    @param: none
+    @return: projects view
+    */
     public function index()
     {
         $items = Project::get();
@@ -14,6 +19,11 @@ class ProjectController extends Controller
         return view('projects', compact('items'));
     }
 
+    /**
+    Save Project data
+    @param: OBJECT $request
+    @return NONE
+    */
     public function save(Request $request)
     {
         $request->validate([
@@ -35,6 +45,11 @@ class ProjectController extends Controller
         }
     }
 
+    /**
+    Delete Project data
+    @param: OBJECT $request
+    @return NONE
+    */
     public function delete(Request $request)
     {
         $item = Project::find($request->get('id'));
@@ -48,6 +63,11 @@ class ProjectController extends Controller
         ]);
     }
 
+    /**
+    Restore Project data
+    @param: OBJECT $request
+    @return JSON
+    */
     public function restore(Request $request)
     {
         $item = Project::withTrashed()->where('id', $request->get('id'));
@@ -61,6 +81,11 @@ class ProjectController extends Controller
         ]);
     }
 
+    /**
+    Find Projects
+    @param: OBJECT $request
+    @return NONE
+    */
     public function select(Request $request)
     {
         $item = Project::find($request->get('id'));

@@ -7,12 +7,22 @@ use App\Task;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
-{
+{   
+    /**
+    View Main file
+    @param: OBJECT $request
+    @return Blade template
+    */
     public function index(Request $request)
     {
         return view('index');
     }
 
+    /**
+    Get all tasks
+    @param: OBJECT $request
+    @return Blade template
+    */
     public function getTasks(Request $request)
     {
         $request->validate([
@@ -30,6 +40,11 @@ class TaskController extends Controller
         return view('tasks', compact('project', 'tasks'));
     }
 
+    /**
+    Save Task Data
+    @param: OBJECT $request
+    @return: Void
+    */
     public function save(Request $request)
     {
         $request->validate([
@@ -60,6 +75,11 @@ class TaskController extends Controller
         }
     }
 
+    /**
+    Save Task Data
+    @param: OBJECT $request
+    @return: JSON
+    */
     public function sort(Request $request)
     {
         parse_str($request->get('items'), $items);
@@ -82,6 +102,11 @@ class TaskController extends Controller
         ]);
     }
 
+    /**
+    Delete Task Data
+    @param: OBJECT $request
+    @return: JSON
+    */
     public function delete(Request $request)
     {
         $request->validate([
@@ -98,7 +123,11 @@ class TaskController extends Controller
             'message' => 'Item deleted successfully!'
         ]);
     }
-
+    /**
+    Restore Task Data
+    @param: OBJECT $request
+    @return: JSON
+    */
     public function restore(Request $request)
     {
         $item = Task::withTrashed()->where('id', $request->get('id'));
